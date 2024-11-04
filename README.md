@@ -1,4 +1,4 @@
-# Business Process Simulation _ Burito restaurent
+# Business Process Simulation _ Burrito Restaurant
 
 ## :information_source: GENERAL INFORMATION
 - :bulb: Purpose: The project aims to provide an extensive analysis of simulation models to support the 
