@@ -1,0 +1,31 @@
+# PROJECT 2 - QUESTION 1
+
+reset;
+model Q1.mod;
+data Q1.dat;
+option solver gurobi;
+option gurobi_options 'outlev=1';
+option show_stats 1;
+
+for {s in 1..5} {
+	let truck_number := s; 
+	solve;
+	let Total_revenue := sum{i in Customers, j in Locations}(r*round(a[i,j]*d[i])*y[i,j]);
+	let Total_expense := sum{i in Customers, j in Locations}(k*round(a[i,j]*d[i])*y[i,j]) + sum{j in Locations}(f*x[j]);
+	
+	let Total_sales := sum{i in Customers, j in Locations}(round(a[i,j]*d[i])*y[i,j]);
+	let {i in Customers} Sales_per_building[i] := sum{j in Locations} (round(a[i,j]*d[i])*y[i,j]);
+	let {j in Locations} Sales_per_truck[j] := sum{i in Customers} (round(a[i,j]*d[i])*y[i,j]);
+	let {i in Customers, j in Locations} Sales[i,j] := round(a[i,j]*d[i])*y[i,j];
+	
+	display Total_revenue, Total_expense, Total_profit > result.txt; 
+	display Total_sales,Sales_per_building,Sales_per_truck,Sales > result.txt;
+	display x,y > result.txt;
+	expand > fullmodel.txt;
+}
+
+
+
+
+
+ 
